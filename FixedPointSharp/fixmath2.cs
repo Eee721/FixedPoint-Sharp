@@ -5,8 +5,8 @@ namespace Deterministic.FixedPoint
     public partial struct fixmath
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Sum(fp2 v) {
-            return new fp(v.x.value + v.y.value);
+        public static Fix64 Sum(fp2 v) {
+            return new Fix64(v.x.value + v.y.value);
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -27,26 +27,26 @@ namespace Deterministic.FixedPoint
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Dot(fp2 a, fp2 b)
+        public static Fix64 Dot(fp2 a, fp2 b)
         {
             a.x.value = ((a.x.value * b.x.value) >> fixlut.PRECISION) + ((a.y.value * b.y.value) >> fixlut.PRECISION);
             return a.x;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Cross(fp2 a, fp2 b) {
+        public static Fix64 Cross(fp2 a, fp2 b) {
             a.x.value = (a.x.value * b.y.value >> fixlut.PRECISION) - (a.y.value * b.x.value >> fixlut.PRECISION);
             return a.x;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 Cross(fp2 a, fp s)
+        public static fp2 Cross(fp2 a, Fix64 s)
         {
             return new fp2(s * a.y, -s * a.x);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 Cross(fp s, fp2 a) {
+        public static fp2 Cross(Fix64 s, fp2 a) {
             fp2 result;
             result.x.value = -s.value * a.y.value >> fixlut.PRECISION;
             result.y.value = s.value * a.x.value >> fixlut.PRECISION;
@@ -78,10 +78,10 @@ namespace Deterministic.FixedPoint
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 ClampMagnitude(fp2 v, fp length)
+        public static fp2 ClampMagnitude(fp2 v, Fix64 length)
         {
             fp2 value = v;
-            fp r;
+            Fix64 r;
 
             r.value =
                 ((value.x.value * value.x.value) >> fixlut.PRECISION) +
@@ -92,13 +92,13 @@ namespace Deterministic.FixedPoint
             else
             {
                 fp2 v1 = value;
-                fp m = default;
-                fp r2;
+                Fix64 m = default;
+                Fix64 r2;
 
                 r2.value =
                     ((v1.x.value * v1.x.value) >> fixlut.PRECISION) +
                     ((v1.y.value * v1.y.value) >> fixlut.PRECISION);
-                fp r1;
+                Fix64 r1;
 
                 if (r2.value == 0)
                 {
@@ -120,7 +120,7 @@ namespace Deterministic.FixedPoint
 
                 m = r1;
 
-                if (m.value <= fp.epsilon.value)
+                if (m.value <= Fix64.epsilon.value)
                 {
                     v1 = default;
                 }
@@ -137,14 +137,14 @@ namespace Deterministic.FixedPoint
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Magnitude(fp2 v)
+        public static Fix64 Magnitude(fp2 v)
         {
-            fp r;
+            Fix64 r;
 
             r.value =
                 ((v.x.value * v.x.value) >> fixlut.PRECISION) +
                 ((v.y.value * v.y.value) >> fixlut.PRECISION);
-            fp r1;
+            Fix64 r1;
 
             if (r.value == 0)
             {
@@ -168,7 +168,7 @@ namespace Deterministic.FixedPoint
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp MagnitudeSqr(fp2 v)
+        public static Fix64 MagnitudeSqr(fp2 v)
         {
             v.x.value =
                 ((v.x.value * v.x.value) >> fixlut.PRECISION) +
@@ -178,19 +178,19 @@ namespace Deterministic.FixedPoint
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Distance(fp2 a, fp2 b)
+        public static Fix64 Distance(fp2 a, fp2 b)
         {
             fp2 v;
 
             v.x.value = a.x.value - b.x.value;
             v.y.value = a.y.value - b.y.value;
 
-            fp r;
+            Fix64 r;
 
             r.value =
                 ((v.x.value * v.x.value) >> fixlut.PRECISION) +
                 ((v.y.value * v.y.value) >> fixlut.PRECISION);
-            fp r1;
+            Fix64 r1;
 
             if (r.value == 0)
             {
@@ -214,7 +214,7 @@ namespace Deterministic.FixedPoint
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp DistanceSqr(fp2 a, fp2 b)
+        public static Fix64 DistanceSqr(fp2 a, fp2 b)
         {
             var x = a.x.value - b.x.value;
             var z = a.y.value - b.y.value;
@@ -227,13 +227,13 @@ namespace Deterministic.FixedPoint
         public static fp2 Normalize(fp2 v)
         {
             fp2 v1 = v;
-            fp m = default;
-            fp r;
+            Fix64 m = default;
+            Fix64 r;
 
             r.value =
                 ((v1.x.value * v1.x.value) >> fixlut.PRECISION) +
                 ((v1.y.value * v1.y.value) >> fixlut.PRECISION);
-            fp r1;
+            Fix64 r1;
 
             if (r.value == 0)
             {
@@ -255,7 +255,7 @@ namespace Deterministic.FixedPoint
 
             m = r1;
 
-            if (m.value <= fp.epsilon.value)
+            if (m.value <= Fix64.epsilon.value)
             {
                 v1 = default;
             }
@@ -269,11 +269,11 @@ namespace Deterministic.FixedPoint
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 Normalize(fp2 v, out fp magnitude)
+        public static fp2 Normalize(fp2 v, out Fix64 magnitude)
         {
             if (v == fp2.zero)
             {
-                magnitude = fp._0;
+                magnitude = Fix64._0;
                 return fp2.zero;
             }
 
@@ -282,28 +282,28 @@ namespace Deterministic.FixedPoint
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 Lerp(fp2 from, fp2 to, fp t) {
+        public static fp2 Lerp(fp2 from, fp2 to, Fix64 t) {
             t = Clamp01(t);
             return new fp2(LerpUnclamped(from.x, to.x, t), LerpUnclamped(from.y, to.y, t));
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 LerpUnclamped(fp2 from, fp2 to, fp t)
+        public static fp2 LerpUnclamped(fp2 from, fp2 to, Fix64 t)
         {
             return new fp2(LerpUnclamped(from.x, to.x, t), LerpUnclamped(from.y, to.y, t));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Angle(fp2 a, fp2 b)
+        public static Fix64 Angle(fp2 a, fp2 b)
         {
             fp2 v = a;
-            fp m = default;
-            fp r2;
+            Fix64 m = default;
+            Fix64 r2;
 
             r2.value =
                 ((v.x.value * v.x.value) >> fixlut.PRECISION) +
                 ((v.y.value * v.y.value) >> fixlut.PRECISION);
-            fp r1;
+            Fix64 r1;
 
             if (r2.value == 0)
             {
@@ -325,7 +325,7 @@ namespace Deterministic.FixedPoint
 
             m = r1;
 
-            if (m.value <= fp.epsilon.value)
+            if (m.value <= Fix64.epsilon.value)
             {
                 v = default;
             }
@@ -336,13 +336,13 @@ namespace Deterministic.FixedPoint
             }
 
             fp2 v1 = b;
-            fp m1 = default;
-            fp r3;
+            Fix64 m1 = default;
+            Fix64 r3;
 
             r3.value =
                 ((v1.x.value * v1.x.value) >> fixlut.PRECISION) +
                 ((v1.y.value * v1.y.value) >> fixlut.PRECISION);
-            fp r4;
+            Fix64 r4;
 
             if (r3.value == 0)
             {
@@ -364,7 +364,7 @@ namespace Deterministic.FixedPoint
 
             m1 = r4;
 
-            if (m1.value <= fp.epsilon.value)
+            if (m1.value <= Fix64.epsilon.value)
             {
                 v1 = default;
             }
@@ -379,13 +379,13 @@ namespace Deterministic.FixedPoint
             var x = ((a1.x.value * b1.x.value) >> fixlut.PRECISION);
             var z = ((a1.y.value * b1.y.value) >> fixlut.PRECISION);
 
-            fp r;
+            Fix64 r;
 
             r.value = x + z;
             var dot = r;
-            fp min = -fp._1;
-            fp max = +fp._1;
-            fp ret;
+            Fix64 min = -Fix64._1;
+            Fix64 max = +Fix64._1;
+            Fix64 ret;
             if (dot.value < min.value)
             {
                 ret = min;
@@ -394,20 +394,20 @@ namespace Deterministic.FixedPoint
                 ret = dot.value > max.value ? max : dot;
             }
 
-            return new fp(fixlut.acos(ret.value)) * fp.rad2deg;
+            return new Fix64(fixlut.acos(ret.value)) * Fix64.rad2deg;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Radians(fp2 a, fp2 b)
+        public static Fix64 Radians(fp2 a, fp2 b)
         {
             fp2 v = a;
-            fp m = default;
-            fp r2;
+            Fix64 m = default;
+            Fix64 r2;
 
             r2.value =
                 ((v.x.value * v.x.value) >> fixlut.PRECISION) +
                 ((v.y.value * v.y.value) >> fixlut.PRECISION);
-            fp r1;
+            Fix64 r1;
 
             if (r2.value == 0)
             {
@@ -429,7 +429,7 @@ namespace Deterministic.FixedPoint
 
             m = r1;
 
-            if (m.value <= fp.epsilon.value)
+            if (m.value <= Fix64.epsilon.value)
             {
                 v = default;
             }
@@ -440,13 +440,13 @@ namespace Deterministic.FixedPoint
             }
 
             fp2 v1 = b;
-            fp m1 = default;
-            fp r3;
+            Fix64 m1 = default;
+            Fix64 r3;
 
             r3.value =
                 ((v1.x.value * v1.x.value) >> fixlut.PRECISION) +
                 ((v1.y.value * v1.y.value) >> fixlut.PRECISION);
-            fp r4;
+            Fix64 r4;
 
             if (r3.value == 0)
             {
@@ -468,7 +468,7 @@ namespace Deterministic.FixedPoint
 
             m1 = r4;
 
-            if (m1.value <= fp.epsilon.value)
+            if (m1.value <= Fix64.epsilon.value)
             {
                 v1 = default;
             }
@@ -483,13 +483,13 @@ namespace Deterministic.FixedPoint
             var x = ((a1.x.value * b1.x.value) >> fixlut.PRECISION);
             var z = ((a1.y.value * b1.y.value) >> fixlut.PRECISION);
 
-            fp r;
+            Fix64 r;
 
             r.value = x + z;
             var dot = r;
-            fp min = -fp._1;
-            fp max = +fp._1;
-            fp ret;
+            Fix64 min = -Fix64._1;
+            Fix64 max = +Fix64._1;
+            Fix64 ret;
             if (dot.value < min.value)
             {
                 ret = min;
@@ -506,20 +506,20 @@ namespace Deterministic.FixedPoint
                 }
             }
 
-            return new fp(fixlut.acos(ret.value));
+            return new Fix64(fixlut.acos(ret.value));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp RadiansSigned(fp2 a, fp2 b)
+        public static Fix64 RadiansSigned(fp2 a, fp2 b)
         {
             fp2 v = a;
-            fp m = default;
-            fp r2;
+            Fix64 m = default;
+            Fix64 r2;
 
             r2.value =
                 ((v.x.value * v.x.value) >> fixlut.PRECISION) +
                 ((v.y.value * v.y.value) >> fixlut.PRECISION);
-            fp r1;
+            Fix64 r1;
 
             if (r2.value == 0)
             {
@@ -541,7 +541,7 @@ namespace Deterministic.FixedPoint
 
             m = r1;
 
-            if (m.value <= fp.epsilon.value)
+            if (m.value <= Fix64.epsilon.value)
             {
                 v = default;
             }
@@ -552,13 +552,13 @@ namespace Deterministic.FixedPoint
             }
 
             fp2 v1 = b;
-            fp m1 = default;
-            fp r3;
+            Fix64 m1 = default;
+            Fix64 r3;
 
             r3.value =
                 ((v1.x.value * v1.x.value) >> fixlut.PRECISION) +
                 ((v1.y.value * v1.y.value) >> fixlut.PRECISION);
-            fp r4;
+            Fix64 r4;
 
             if (r3.value == 0)
             {
@@ -580,7 +580,7 @@ namespace Deterministic.FixedPoint
 
             m1 = r4;
 
-            if (m1.value <= fp.epsilon.value)
+            if (m1.value <= Fix64.epsilon.value)
             {
                 v1 = default;
             }
@@ -595,13 +595,13 @@ namespace Deterministic.FixedPoint
             var x = ((a1.x.value * b1.x.value) >> fixlut.PRECISION);
             var z = ((a1.y.value * b1.y.value) >> fixlut.PRECISION);
 
-            fp r;
+            Fix64 r;
 
             r.value = x + z;
             var dot = r;
-            fp min = -fp._1;
-            fp max = +fp._1;
-            fp ret;
+            Fix64 min = -Fix64._1;
+            Fix64 max = +Fix64._1;
+            Fix64 ret;
             if (dot.value < min.value)
             {
                 ret = min;
@@ -618,27 +618,27 @@ namespace Deterministic.FixedPoint
                 }
             }
 
-            var rad  = new fp(fixlut.acos(ret.value));
-            var sign = ((a.x * b.y - a.y * b.x).value <  fixlut.ZERO) ? fp.minus_one : fp._1;
+            var rad  = new Fix64(fixlut.acos(ret.value));
+            var sign = ((a.x * b.y - a.y * b.x).value <  fixlut.ZERO) ? Fix64.minus_one : Fix64._1;
 
             return rad * sign;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp RadiansSkipNormalize(fp2 a, fp2 b)
+        public static Fix64 RadiansSkipNormalize(fp2 a, fp2 b)
         {
             fp2 a1 = a;
             fp2 b1 = b;
             var x = ((a1.x.value * b1.x.value) >> fixlut.PRECISION);
             var z = ((a1.y.value * b1.y.value) >> fixlut.PRECISION);
 
-            fp r;
+            Fix64 r;
 
             r.value = x + z;
             var dot = r;
-            fp min = -fp._1;
-            fp max = +fp._1;
-            fp ret;
+            Fix64 min = -Fix64._1;
+            Fix64 max = +Fix64._1;
+            Fix64 ret;
             if (dot.value < min.value)
             {
                 ret = min;
@@ -647,24 +647,24 @@ namespace Deterministic.FixedPoint
                 ret = dot.value > max.value ? max : dot;
             }
 
-            return new fp(fixlut.acos(ret.value));
+            return new Fix64(fixlut.acos(ret.value));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp RadiansSignedSkipNormalize(fp2 a, fp2 b)
+        public static Fix64 RadiansSignedSkipNormalize(fp2 a, fp2 b)
         {
             fp2 a1 = a;
             fp2 b1 = b;
             var x = ((a1.x.value * b1.x.value) >> fixlut.PRECISION);
             var z = ((a1.y.value * b1.y.value) >> fixlut.PRECISION);
 
-            fp r;
+            Fix64 r;
 
             r.value = x + z;
             var dot = r;
-            fp min = -fp._1;
-            fp max = +fp._1;
-            fp ret;
+            Fix64 min = -Fix64._1;
+            Fix64 max = +Fix64._1;
+            Fix64 ret;
             if (dot.value < min.value)
             {
                 ret = min;
@@ -681,8 +681,8 @@ namespace Deterministic.FixedPoint
                 }
             }
 
-            var rad  = new fp(fixlut.acos(ret.value));
-            var sign = ((a.x * b.y - a.y * b.x).value < fixlut.ZERO) ? fp.minus_one : fp._1;
+            var rad  = new Fix64(fixlut.acos(ret.value));
+            var sign = ((a.x * b.y - a.y * b.x).value < fixlut.ZERO) ? Fix64.minus_one : Fix64._1;
 
             return rad * sign;
         }
@@ -690,18 +690,18 @@ namespace Deterministic.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 Reflect(fp2 vector, fp2 normal)
         {
-            fp dot = (vector.x * normal.x) + (vector.y * normal.y);
+            Fix64 dot = (vector.x * normal.x) + (vector.y * normal.y);
 
             fp2 result;
 
-            result.x = vector.x - ((fp._2 * dot) * normal.x);
-            result.y = vector.y - ((fp._2 * dot) * normal.y);
+            result.x = vector.x - ((Fix64._2 * dot) * normal.x);
+            result.y = vector.y - ((Fix64._2 * dot) * normal.y);
 
             return result;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 Rotate(fp2 vector, fp angle)
+        public static fp2 Rotate(fp2 vector, Fix64 angle)
         {
             fp2 vector1 = vector;
             var cs = Cos(angle);

@@ -7,56 +7,56 @@ using System.Runtime.InteropServices;
 namespace Deterministic.FixedPoint {
     [Serializable]
     [StructLayout(LayoutKind.Explicit, Size = SIZE)]
-    public struct fp : IEquatable<fp>, IComparable<fp> {
+    public struct Fix64 : IEquatable<Fix64>, IComparable<Fix64> {
         public const int SIZE = 8;
 
-        public static readonly fp max        = new fp(long.MaxValue);
-        public static readonly fp min        = new fp(long.MinValue);
-        public static readonly fp usable_max = new fp(2147483648L);
-        public static readonly fp usable_min = -usable_max;
+        public static readonly Fix64 max        = new Fix64(long.MaxValue);
+        public static readonly Fix64 min        = new Fix64(long.MinValue);
+        public static readonly Fix64 usable_max = new Fix64(2147483648L);
+        public static readonly Fix64 usable_min = -usable_max;
 
-        public static readonly fp _0   = 0;
-        public static readonly fp _1   = 1;
-        public static readonly fp _2   = 2;
-        public static readonly fp _3   = 3;
-        public static readonly fp _4   = 4;
-        public static readonly fp _5   = 5;
-        public static readonly fp _6   = 6;
-        public static readonly fp _7   = 7;
-        public static readonly fp _8   = 8;
-        public static readonly fp _9   = 9;
-        public static readonly fp _10  = 10;
-        public static readonly fp _99  = 99;
-        public static readonly fp _100 = 100;
-        public static readonly fp _200 = 200;
+        public static readonly Fix64 _0   = 0;
+        public static readonly Fix64 _1   = 1;
+        public static readonly Fix64 _2   = 2;
+        public static readonly Fix64 _3   = 3;
+        public static readonly Fix64 _4   = 4;
+        public static readonly Fix64 _5   = 5;
+        public static readonly Fix64 _6   = 6;
+        public static readonly Fix64 _7   = 7;
+        public static readonly Fix64 _8   = 8;
+        public static readonly Fix64 _9   = 9;
+        public static readonly Fix64 _10  = 10;
+        public static readonly Fix64 _99  = 99;
+        public static readonly Fix64 _100 = 100;
+        public static readonly Fix64 _200 = 200;
 
-        public static readonly fp _0_01 = _1 / _100;
-        public static readonly fp _0_02 = _0_01 * 2;
-        public static readonly fp _0_03 = _0_01 * 3;
-        public static readonly fp _0_04 = _0_01 * 4;
-        public static readonly fp _0_05 = _0_01 * 5;
-        public static readonly fp _0_10 = _1 / 10;
-        public static readonly fp _0_20 = _0_10 * 2;
-        public static readonly fp _0_25 = _1 / 4;
-        public static readonly fp _0_33 = _1 / 3;
-        public static readonly fp _0_50 = _1 / 2;
-        public static readonly fp _0_75 = _1 - _0_25;
-        public static readonly fp _0_95 = _1 - _0_05;
-        public static readonly fp _0_99 = _1 - _0_01;
-        public static readonly fp _1_01 = _1 + _0_01;
-        public static readonly fp _1_10 = _1 + _0_10;
-        public static readonly fp _1_50 = _1 + _0_50;
+        public static readonly Fix64 _0_01 = _1 / _100;
+        public static readonly Fix64 _0_02 = _0_01 * 2;
+        public static readonly Fix64 _0_03 = _0_01 * 3;
+        public static readonly Fix64 _0_04 = _0_01 * 4;
+        public static readonly Fix64 _0_05 = _0_01 * 5;
+        public static readonly Fix64 _0_10 = _1 / 10;
+        public static readonly Fix64 _0_20 = _0_10 * 2;
+        public static readonly Fix64 _0_25 = _1 / 4;
+        public static readonly Fix64 _0_33 = _1 / 3;
+        public static readonly Fix64 _0_50 = _1 / 2;
+        public static readonly Fix64 _0_75 = _1 - _0_25;
+        public static readonly Fix64 _0_95 = _1 - _0_05;
+        public static readonly Fix64 _0_99 = _1 - _0_01;
+        public static readonly Fix64 _1_01 = _1 + _0_01;
+        public static readonly Fix64 _1_10 = _1 + _0_10;
+        public static readonly Fix64 _1_50 = _1 + _0_50;
 
-        public static readonly fp minus_one   = -1;
-        public static readonly fp pi          = new fp(205887L);
-        public static readonly fp pi2         = pi * 2;
-        public static readonly fp pi_quarter  = pi * _0_25;
-        public static readonly fp pi_half     = pi * _0_50;
-        public static readonly fp one_div_pi2 = 1 / pi2;
-        public static readonly fp deg2rad     = new fp(1143L);
-        public static readonly fp rad2deg     = new fp(3754936L);
-        public static readonly fp epsilon     = new fp(1);
-        public static readonly fp e           = new fp(178145L);
+        public static readonly Fix64 minus_one   = -1;
+        public static readonly Fix64 pi          = new Fix64(205887L);
+        public static readonly Fix64 pi2         = pi * 2;
+        public static readonly Fix64 pi_quarter  = pi * _0_25;
+        public static readonly Fix64 pi_half     = pi * _0_50;
+        public static readonly Fix64 one_div_pi2 = 1 / pi2;
+        public static readonly Fix64 deg2rad     = new Fix64(1143L);
+        public static readonly Fix64 rad2deg     = new Fix64(3754936L);
+        public static readonly Fix64 epsilon     = new Fix64(1);
+        public static readonly Fix64 e           = new Fix64(178145L);
 
         [FieldOffset(0)]
         public long value;
@@ -69,240 +69,240 @@ namespace Deterministic.FixedPoint {
         public double AsDoubleRounded => Math.Round(value / 65536d, 5);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal fp(long v) {
+        internal Fix64(long v) {
             value = v;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator -(fp a) {
+        public static Fix64 operator -(Fix64 a) {
             a.value = -a.value;
             return a;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator +(fp a) {
+        public static Fix64 operator +(Fix64 a) {
             a.value = +a.value;
             return a;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator +(fp a, fp b) {
+        public static Fix64 operator +(Fix64 a, Fix64 b) {
             a.value += b.value;
             return a;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator +(fp a, int b) {
+        public static Fix64 operator +(Fix64 a, int b) {
             a.value += (long) b << fixlut.PRECISION;
             return a;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator +(int a, fp b) {
+        public static Fix64 operator +(int a, Fix64 b) {
             b.value = ((long) a << fixlut.PRECISION) + b.value;
             return b;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator -(fp a, fp b) {
+        public static Fix64 operator -(Fix64 a, Fix64 b) {
             a.value -= b.value;
             return a;
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator -(fp a, int b) {
+        public static Fix64 operator -(Fix64 a, int b) {
             a.value -= (long) b << fixlut.PRECISION;
             return a;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator -(int a, fp b) {
+        public static Fix64 operator -(int a, Fix64 b) {
             b.value = ((long) a << fixlut.PRECISION) - b.value;
             return b;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator *(fp a, fp b) {
+        public static Fix64 operator *(Fix64 a, Fix64 b) {
             a.value = a.value * b.value >> fixlut.PRECISION;
             return a;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator *(fp a, int b) {
+        public static Fix64 operator *(Fix64 a, int b) {
             a.value *= b;
             return a;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator *(int a, fp b) {
+        public static Fix64 operator *(int a, Fix64 b) {
             b.value *= a;
             return b;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator /(fp a, fp b) {
+        public static Fix64 operator /(Fix64 a, Fix64 b) {
             a.value = (a.value << fixlut.PRECISION) / b.value;
             return a;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator /(fp a, int b) {
+        public static Fix64 operator /(Fix64 a, int b) {
             a.value /= b;
             return a;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator /(int a, fp b) {
+        public static Fix64 operator /(int a, Fix64 b) {
             b.value = ((long) a << 32) / b.value;
             return b;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator %(fp a, fp b) {
+        public static Fix64 operator %(Fix64 a, Fix64 b) {
             a.value %= b.value;
             return a;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator %(fp a, int b) {
+        public static Fix64 operator %(Fix64 a, int b) {
             a.value %= (long) b << fixlut.PRECISION;
             return a;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp operator %(int a, fp b) {
+        public static Fix64 operator %(int a, Fix64 b) {
             b.value = ((long) a << fixlut.PRECISION) % b.value;
             return b;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(fp a, fp b) {
+        public static bool operator <(Fix64 a, Fix64 b) {
             return a.value < b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(fp a, int b) {
+        public static bool operator <(Fix64 a, int b) {
             return a.value < (long) b << fixlut.PRECISION;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(int a, fp b) {
+        public static bool operator <(int a, Fix64 b) {
             return (long) a << fixlut.PRECISION < b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(fp a, fp b) {
+        public static bool operator <=(Fix64 a, Fix64 b) {
             return a.value <= b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(fp a, int b) {
+        public static bool operator <=(Fix64 a, int b) {
             return a.value <= (long) b << fixlut.PRECISION;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(int a, fp b) {
+        public static bool operator <=(int a, Fix64 b) {
             return (long) a << fixlut.PRECISION <= b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(fp a, fp b) {
+        public static bool operator >(Fix64 a, Fix64 b) {
             return a.value > b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(fp a, int b) {
+        public static bool operator >(Fix64 a, int b) {
             return a.value > (long) b << fixlut.PRECISION;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(int a, fp b) {
+        public static bool operator >(int a, Fix64 b) {
             return (long) a << fixlut.PRECISION > b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(fp a, fp b) {
+        public static bool operator >=(Fix64 a, Fix64 b) {
             return a.value >= b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(fp a, int b) {
+        public static bool operator >=(Fix64 a, int b) {
             return a.value >= (long) b << fixlut.PRECISION;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(int a, fp b) {
+        public static bool operator >=(int a, Fix64 b) {
             return (long) a << fixlut.PRECISION >= b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(fp a, fp b) {
+        public static bool operator ==(Fix64 a, Fix64 b) {
             return a.value == b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(fp a, int b) {
+        public static bool operator ==(Fix64 a, int b) {
             return a.value == (long) b << fixlut.PRECISION;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(int a, fp b) {
+        public static bool operator ==(int a, Fix64 b) {
             return (long) a << fixlut.PRECISION == b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(fp a, fp b) {
+        public static bool operator !=(Fix64 a, Fix64 b) {
             return a.value != b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(fp a, int b) {
+        public static bool operator !=(Fix64 a, int b) {
             return a.value != (long) b << fixlut.PRECISION;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(int a, fp b) {
+        public static bool operator !=(int a, Fix64 b) {
             return (long) a << fixlut.PRECISION != b.value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator fp(int value) {
-            fp f;
+        public static implicit operator Fix64(int value) {
+            Fix64 f;
             f.value = (long) value << fixlut.PRECISION;
             return f;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator int(fp value) {
+        public static explicit operator int(Fix64 value) {
             return (int) (value.value >> fixlut.PRECISION);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator long(fp value) {
+        public static explicit operator long(Fix64 value) {
             return value.value >> fixlut.PRECISION;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float(fp value) {
+        public static explicit operator float(Fix64 value) {
             return value.value / 65536f;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator double(fp value) {
+        public static explicit operator double(Fix64 value) {
             return value.value / 65536d;
         }
 
-        public int CompareTo(fp other) {
+        public int CompareTo(Fix64 other) {
             return value.CompareTo(other.value);
         }
 
-        public bool Equals(fp other) {
+        public bool Equals(Fix64 other) {
             return value == other.value;
         }
 
         public override bool Equals(object obj) {
-            return obj is fp other && this == other;
+            return obj is Fix64 other && this == other;
         }
 
         public override int GetHashCode() {
@@ -315,31 +315,31 @@ namespace Deterministic.FixedPoint {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp ParseRaw(long value) {
-            return new fp(value);
+        public static Fix64 ParseRaw(long value) {
+            return new Fix64(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Parse(long value) {
-            return new fp(value << fixlut.PRECISION);
+        public static Fix64 Parse(long value) {
+            return new Fix64(value << fixlut.PRECISION);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp ParseUnsafe(float value) {
-            return new fp((long) (value * fixlut.ONE + 0.5f * (value < 0 ? -1 : 1)));
+        public static Fix64 ParseUnsafe(float value) {
+            return new Fix64((long) (value * fixlut.ONE + 0.5f * (value < 0 ? -1 : 1)));
         }
 
-        public static fp ParseUnsafe(string value) {
+        public static Fix64 ParseUnsafe(string value) {
             var doubleValue = double.Parse(value, CultureInfo.InvariantCulture);
             var longValue   = (long) (doubleValue * fixlut.ONE + 0.5d * (doubleValue < 0 ? -1 : 1));
-            return new fp(longValue);
+            return new Fix64(longValue);
         }
 
         /// <summary>
         /// Deterministically parses FP value out of a string
         /// </summary>
         /// <param name="value">Trimmed string to parse</param>
-        public static fp Parse(string value) {
+        public static Fix64 Parse(string value) {
             if (string.IsNullOrEmpty(value))
             {
                 return _0;
@@ -362,7 +362,7 @@ namespace Deterministic.FixedPoint {
 
             }
 
-            var result = new fp();
+            var result = new Fix64();
             
             if (pointIndex > startIndex) {
                 var integerString = value.Substring(startIndex, pointIndex - startIndex);
@@ -382,35 +382,35 @@ namespace Deterministic.FixedPoint {
             return negative ? -result : result;
         }
         
-        private static fp ParseInteger(string format) {
+        private static Fix64 ParseInteger(string format) {
             return Parse(long.Parse(format, CultureInfo.InvariantCulture));
         }
 
-        private static fp ParseFractions(string format) {
+        private static Fix64 ParseFractions(string format) {
             format = format.Length < 5 ? format.PadRight(5, '0') : format.Substring(0, 5);
             return ParseRaw(long.Parse(format, CultureInfo.InvariantCulture) * 65536 / 100000);
         }
 
-        public class Comparer : IComparer<fp> {
+        public class Comparer : IComparer<Fix64> {
             public static readonly Comparer instance = new Comparer();
 
             private Comparer() { }
 
-            int IComparer<fp>.Compare(fp x, fp y) {
+            int IComparer<Fix64>.Compare(Fix64 x, Fix64 y) {
                 return x.value.CompareTo(y.value);
             }
         }
 
-        public class EqualityComparer : IEqualityComparer<fp> {
+        public class EqualityComparer : IEqualityComparer<Fix64> {
             public static readonly EqualityComparer instance = new EqualityComparer();
 
             private EqualityComparer() { }
 
-            bool IEqualityComparer<fp>.Equals(fp x, fp y) {
+            bool IEqualityComparer<Fix64>.Equals(Fix64 x, Fix64 y) {
                 return x.value == y.value;
             }
 
-            int IEqualityComparer<fp>.GetHashCode(fp num) {
+            int IEqualityComparer<Fix64>.GetHashCode(Fix64 num) {
                 return num.value.GetHashCode();
             }
         }

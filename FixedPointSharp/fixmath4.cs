@@ -4,8 +4,8 @@ namespace Deterministic.FixedPoint {
     public partial struct fixmath
     { 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Sum(fp4 v) {
-            return new fp(v.x.value + v.y.value + v.z.value + v.w.value);
+        public static Fix64 Sum(fp4 v) {
+            return new Fix64(v.x.value + v.y.value + v.z.value + v.w.value);
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -15,8 +15,8 @@ namespace Deterministic.FixedPoint {
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Dot(fp4 a, fp4 b) {
-            return new fp(((a.x.value * b.x.value) >> fixlut.PRECISION) + ((a.y.value * b.y.value) >> fixlut.PRECISION) + ((a.z.value * b.z.value) >> fixlut.PRECISION) +
+        public static Fix64 Dot(fp4 a, fp4 b) {
+            return new Fix64(((a.x.value * b.x.value) >> fixlut.PRECISION) + ((a.y.value * b.y.value) >> fixlut.PRECISION) + ((a.z.value * b.z.value) >> fixlut.PRECISION) +
                           ((a.w.value * b.w.value) >> fixlut.PRECISION));
         }
         
@@ -30,11 +30,11 @@ namespace Deterministic.FixedPoint {
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 Normalize(fp4 v, out fp magnitude)
+        public static fp4 Normalize(fp4 v, out Fix64 magnitude)
         {
             if (v == fp4.zero)
             {
-                magnitude = fp._0;
+                magnitude = Fix64._0;
                 return fp4.zero;
             }
 
@@ -44,7 +44,7 @@ namespace Deterministic.FixedPoint {
         
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Distance(fp4 p1, fp4 p2)
+        public static Fix64 Distance(fp4 p1, fp4 p2)
         {
             fp4 v;
             v.x.value = p1.x.value - p2.x.value;
@@ -56,7 +56,7 @@ namespace Deterministic.FixedPoint {
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp DistanceSqr(fp4 p1, fp4 p2)
+        public static Fix64 DistanceSqr(fp4 p1, fp4 p2)
         {
             fp4 v;
             v.x.value = p1.x.value - p2.x.value;
@@ -68,7 +68,7 @@ namespace Deterministic.FixedPoint {
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp MagnitudeSqr(fp4 v)
+        public static Fix64 MagnitudeSqr(fp4 v)
         {
             v.x.value =
                 ((v.x.value * v.x.value) >> fixlut.PRECISION) +
@@ -80,7 +80,7 @@ namespace Deterministic.FixedPoint {
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Magnitude(fp4 v)
+        public static Fix64 Magnitude(fp4 v)
         {
             v.x.value =
                 ((v.x.value * v.x.value) >> fixlut.PRECISION) +
@@ -92,7 +92,7 @@ namespace Deterministic.FixedPoint {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 MagnitudeClamp(fp4 v, fp length)
+        public static fp4 MagnitudeClamp(fp4 v, Fix64 length)
         {
             var sqrMagnitude = MagnitudeSqr(v);
             if (sqrMagnitude <= length * length)
@@ -104,7 +104,7 @@ namespace Deterministic.FixedPoint {
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 MagnitudeSet(fp4 v, fp length)
+        public static fp4 MagnitudeSet(fp4 v, Fix64 length)
         {
             return Normalize(v) * length;
         }

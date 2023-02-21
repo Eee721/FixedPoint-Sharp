@@ -21,7 +21,7 @@ namespace UnitTests {
 
             for (float v = from; v < to; v += delta) {
                 var correctAnswer = (float)Math.Exp(v);
-                var parsedFp      = fp.ParseUnsafe(v);
+                var parsedFp      = Fix64.ParseUnsafe(v);
                 var answer        = fixmath.Exp(parsedFp);
                 answer.AsFloat.Should().BeApproximately(correctAnswer, 0.01f);
             }
@@ -32,7 +32,7 @@ namespace UnitTests {
 
             for (float v = from; v < to; v += delta) {
                 var correctAnswer = (float)Math.Exp(v);
-                var parsedFp      = fp.ParseUnsafe(v);
+                var parsedFp      = Fix64.ParseUnsafe(v);
                 var answer        = fixmath.Exp(parsedFp);
                 answer.AsFloat.Should().BeApproximately(correctAnswer, 1f);
             }
@@ -46,7 +46,7 @@ namespace UnitTests {
 
             for (float v = from; v < to; v += delta) {
                 var correctAnswer = (float)Math.Atan(v);
-                var parsedFp      = fp.ParseUnsafe(v);
+                var parsedFp      = Fix64.ParseUnsafe(v);
                 var answer        = fixmath.AtanApproximated(parsedFp);
                 answer.AsFloat.Should().BeApproximately(correctAnswer, 0.01f);
             }
@@ -60,7 +60,7 @@ namespace UnitTests {
 
             for (float v = from; v < to; v += delta) {
                 var correctAnswer = (float)Math.Atan(v);
-                var parsedFp      = fp.ParseUnsafe(v);
+                var parsedFp      = Fix64.ParseUnsafe(v);
                 var answer        = fixmath.Atan(parsedFp);
                 answer.AsFloat.Should().BeApproximately(correctAnswer, 0.001f);
             }
@@ -77,8 +77,8 @@ namespace UnitTests {
             for (float x = from1; x < to1; x += delta) {
                 for (float y = from2; y < to2; y += delta) {
                     var correctAnswer = (float) Math.Atan2(x, y);
-                    var parsedFp1 = fp.ParseUnsafe(x);
-                    var parsedFp2 = fp.ParseUnsafe(y);
+                    var parsedFp1 = Fix64.ParseUnsafe(x);
+                    var parsedFp2 = Fix64.ParseUnsafe(y);
                     var answer = fixmath.Atan2(parsedFp1, parsedFp2);
                     answer.AsFloat.Should().BeApproximately(correctAnswer, 0.01f);
                 }
@@ -87,8 +87,8 @@ namespace UnitTests {
 
         [Test]
         public void TanTest() {
-            for (long i = fp.minus_one.value; i <= fp._1.value; i++) {
-                fp val;
+            for (long i = Fix64.minus_one.value; i <= Fix64._1.value; i++) {
+                Fix64 val;
                 val.value = i;
                 var dValue = val.AsDouble;
                 var answer = fixmath.Tan(val);
@@ -98,8 +98,8 @@ namespace UnitTests {
 
         [Test]
         public void AcosTest() {
-            for (long i = fp.minus_one.value; i <= fp._1.value; i++) {
-                fp val;
+            for (long i = Fix64.minus_one.value; i <= Fix64._1.value; i++) {
+                Fix64 val;
                 val.value = i;
                 var dValue = val.AsDouble;
                 var answer = fixmath.Acos(val);
@@ -109,8 +109,8 @@ namespace UnitTests {
 
         [Test]
         public void AsinTest() {
-            for (long i = fp.minus_one.value; i <= fp._1.value; i++) {
-                fp val;
+            for (long i = Fix64.minus_one.value; i <= Fix64._1.value; i++) {
+                Fix64 val;
                 val.value = i;
                 var dValue = val.AsDouble;
                 var answer = fixmath.Asin(val);
@@ -120,8 +120,8 @@ namespace UnitTests {
 
         [Test]
         public void CosTest() {
-            for (long i = -fp.pi.value*2; i <= fp.pi.value*2; i++) {
-                fp val;
+            for (long i = -Fix64.pi.value*2; i <= Fix64.pi.value*2; i++) {
+                Fix64 val;
                 val.value = i;
                 var dValue = val.AsDouble;
                 var answer = fixmath.Cos(val);
@@ -131,8 +131,8 @@ namespace UnitTests {
 
         [Test]
         public void SinTest() {
-            for (long i = -fp.pi.value*2; i <= fp.pi.value*2; i++) {
-                fp val;
+            for (long i = -Fix64.pi.value*2; i <= Fix64.pi.value*2; i++) {
+                Fix64 val;
                 val.value = i;
                 var dValue = val.AsDouble;
                 var answer = fixmath.Sin(val);
@@ -142,8 +142,8 @@ namespace UnitTests {
 
         [Test]
         public void SinCosTest() {
-            for (long i = -fp.pi.value*2; i <= fp.pi.value*2; i++) {
-                fp val;
+            for (long i = -Fix64.pi.value*2; i <= Fix64.pi.value*2; i++) {
+                Fix64 val;
                 val.value = i;
                 var dValue = val.AsDouble;
                 
@@ -155,13 +155,13 @@ namespace UnitTests {
 
         [Test]
         public void RcpTest() {
-            var value = fp._0_25;
+            var value = Fix64._0_25;
             var result = fixmath.Rcp(value);
-            result.Should().Be(fp._4);
+            result.Should().Be(Fix64._4);
             
-            value = fp._4;
+            value = Fix64._4;
             result = fixmath.Rcp(value);
-            result.Should().Be(fp._0_25);
+            result.Should().Be(Fix64._0_25);
         }
 
         [Test]
@@ -172,7 +172,7 @@ namespace UnitTests {
 
             for (float v = from; v < to; v += delta) {
                 var correct = (float)Math.Sqrt(v);
-                var parsedFp   = fp.ParseUnsafe(v);
+                var parsedFp   = Fix64.ParseUnsafe(v);
                 var answer = fixmath.Sqrt(parsedFp);
                 answer.AsFloat.Should().BeApproximately(correct, 0.01f);
             }
@@ -180,41 +180,41 @@ namespace UnitTests {
 
         [Test]
         public void FloorTest() {
-            var value  = fp._0_25;
+            var value  = Fix64._0_25;
             var result = fixmath.Floor(value);
-            result.Should().Be(fp._0);
+            result.Should().Be(Fix64._0);
 
             result = fixmath.Floor(-value);
-            result.Should().Be(-fp._1);
+            result.Should().Be(-Fix64._1);
         }
 
         [Test]
         public void CeilTest() {
-            var value  = fp._0_25;
+            var value  = Fix64._0_25;
             var result = fixmath.Ceil(value);
-            result.Should().Be(fp._1);
+            result.Should().Be(Fix64._1);
 
-            result = fixmath.Ceil(-fp._4 - fp._0_25);
-            result.Should().Be(-fp._4);
+            result = fixmath.Ceil(-Fix64._4 - Fix64._0_25);
+            result.Should().Be(-Fix64._4);
         }
 
         [Test]
         public void RoundToIntTest() {
-            var value  = fp._5 + fp._0_25;
+            var value  = Fix64._5 + Fix64._0_25;
             var result = fixmath.RoundToInt(value);
             result.Should().Be(5);
 
-            result = fixmath.RoundToInt(value + fp._0_33);
+            result = fixmath.RoundToInt(value + Fix64._0_33);
             result.Should().Be(6);
 
-            result = fixmath.RoundToInt(value + fp._0_25);
+            result = fixmath.RoundToInt(value + Fix64._0_25);
             result.Should().Be(6);
         }
 
         [Test]
         public void MinTest() {
-            var value1 = fp._0_25;
-            var value2 = fp._0_33;
+            var value1 = Fix64._0_25;
+            var value2 = Fix64._0_33;
             var result = fixmath.Min(value1, value2);
             result.Should().Be(value1);
 
@@ -224,8 +224,8 @@ namespace UnitTests {
 
         [Test]
         public void MaxTest() {
-            var value1 = fp._0_25;
-            var value2 = fp._0_33;
+            var value1 = Fix64._0_25;
+            var value2 = Fix64._0_33;
             var result = fixmath.Max(value1, value2);
             result.Should().Be(value2);
 
@@ -241,7 +241,7 @@ namespace UnitTests {
 
             for (float v = from; v < to; v += delta) {
                 var correctAnswer = Math.Abs(v);
-                var parsedFp           = fp.ParseUnsafe(v);
+                var parsedFp           = Fix64.ParseUnsafe(v);
                 var answer = fixmath.Abs(parsedFp);
                 
                 answer.AsFloat.Should().BeApproximately(correctAnswer, 0.1f);
@@ -256,8 +256,8 @@ namespace UnitTests {
 
             for (float v = from; v < to; v += delta) {
                 var correctAnswer = Math.Clamp(v, -3, 3);
-                var parsedFp      = fp.ParseUnsafe(v);
-                var answer = fixmath.Clamp(parsedFp, -fp._3, fp._3);
+                var parsedFp      = Fix64.ParseUnsafe(v);
+                var answer = fixmath.Clamp(parsedFp, -Fix64._3, Fix64._3);
                 answer.AsFloat.Should().BeApproximately(correctAnswer, 0.1f);
             }
         }
@@ -265,30 +265,30 @@ namespace UnitTests {
 
         [Test]
         public void LerpTest() {
-            var result = fixmath.Lerp(fp._2, fp._4, fp._0_25);
-            result.Should().Be(fp._2 + fp._0_50);
+            var result = fixmath.Lerp(Fix64._2, Fix64._4, Fix64._0_25);
+            result.Should().Be(Fix64._2 + Fix64._0_50);
 
-            result = fixmath.Lerp(fp._2, fp._4, fp._0);
-            result.Should().Be(fp._2);
+            result = fixmath.Lerp(Fix64._2, Fix64._4, Fix64._0);
+            result.Should().Be(Fix64._2);
 
-            result = fixmath.Lerp(fp._2, fp._4, fp._1);
-            result.Should().Be(fp._4);
+            result = fixmath.Lerp(Fix64._2, Fix64._4, Fix64._1);
+            result.Should().Be(Fix64._4);
 
-            result = fixmath.Lerp(fp._2, fp._4, fp._0_50);
-            result.Should().Be(fp._3);
+            result = fixmath.Lerp(Fix64._2, Fix64._4, Fix64._0_50);
+            result.Should().Be(Fix64._3);
         }
 
         [Test]
         public void MulTest() {
-            fp a = 5;
+            Fix64 a = 5;
 
-            var result1 = a * fp._0_01;
+            var result1 = a * Fix64._0_01;
             result1.AsFloat.Should().BeApproximately(0.05f, 0.01f);
             
-            var result2 = fp._0_01 * a;
+            var result2 = Fix64._0_01 * a;
             result2.AsFloat.Should().BeApproximately(0.05f, 0.01f);
 
-            var result3 = fp._0_01 * fp._0_01;
+            var result3 = Fix64._0_01 * Fix64._0_01;
             result3.AsFloat.Should().BeApproximately(0.001f, 0.002f);
         }
 
@@ -300,7 +300,7 @@ namespace UnitTests {
 
             for (float v = from; v < to; v += delta) {
                 var correctAnswer = Math.Sign(v);
-                var parsedFp      = fp.ParseUnsafe(v);
+                var parsedFp      = Fix64.ParseUnsafe(v);
                 var answer        = fixmath.Sign(parsedFp);
                 answer.AsFloat.Should().BeApproximately(correctAnswer, 0.1f);
             }
@@ -308,13 +308,13 @@ namespace UnitTests {
 
         [Test]
         public void IsOppositeSignTest() {
-            var result = fixmath.IsOppositeSign(fp._0_25, -fp._0_20);
+            var result = fixmath.IsOppositeSign(Fix64._0_25, -Fix64._0_20);
             result.Should().Be(true);
 
-            result = fixmath.IsOppositeSign(fp._0_25, fp._0_20);
+            result = fixmath.IsOppositeSign(Fix64._0_25, Fix64._0_20);
             result.Should().Be(false);
 
-            result = fixmath.IsOppositeSign(-fp._0_25, -fp._0_20);
+            result = fixmath.IsOppositeSign(-Fix64._0_25, -Fix64._0_20);
             result.Should().Be(false);
         }
     }
