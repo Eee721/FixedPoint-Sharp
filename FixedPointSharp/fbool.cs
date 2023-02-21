@@ -1,11 +1,13 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace Deterministic.FixedPoint {
+namespace com.muf.fixedmath
+{
     [StructLayout(LayoutKind.Explicit, Size = SIZE)]
     // ReSharper disable once InconsistentNaming
-    public struct fbool {
+    public struct fbool
+    {
         public const int SIZE = 2;
-        
+
         [FieldOffset(0)]
         public ushort Value;
 
@@ -17,32 +19,38 @@ namespace Deterministic.FixedPoint {
         public static implicit operator fbool(bool b)
         {
             fbool fbool;
-            fbool.Value = (ushort) (b ? 1 : 0);
+            fbool.Value = (ushort)(b ? 1 : 0);
             return fbool;
         }
 
-        public bool Equals(fbool other) {
+        public bool Equals(fbool other)
+        {
             return Value == other.Value;
         }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             return obj is fbool other && Equals(other);
         }
-        
-        public static bool operator ==(fbool left, fbool right) {
+
+        public static bool operator ==(fbool left, fbool right)
+        {
             return left.Value == right.Value;
         }
 
-        public static bool operator !=(fbool left, fbool right) {
+        public static bool operator !=(fbool left, fbool right)
+        {
             return left.Value != right.Value;
         }
 
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return Value;
         }
 
-        public override string ToString() {
-            return ((bool) this).ToString();
+        public override string ToString()
+        {
+            return ((bool)this).ToString();
         }
     }
 }

@@ -1,18 +1,19 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Deterministic.FixedPoint
+namespace com.muf.fixedmath
 {
     public partial struct fixmath
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Fix64 Sum(fp2 v) {
+        public static Fix64 Sum(fp2 v)
+        {
             return new Fix64(v.x.value + v.y.value);
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 Min(fp2 a, fp2 b)
         {
-            var ret  = a.x.value < b.x.value ? a.x : b.x;
+            var ret = a.x.value < b.x.value ? a.x : b.x;
             var ret1 = a.y.value < b.y.value ? a.y : b.y;
 
             return new fp2(ret, ret1);
@@ -21,7 +22,7 @@ namespace Deterministic.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 Max(fp2 a, fp2 b)
         {
-            var ret  = a.x.value > b.x.value ? a.x : b.x;
+            var ret = a.x.value > b.x.value ? a.x : b.x;
             var ret1 = a.y.value > b.y.value ? a.y : b.y;
             return new fp2(ret, ret1);
         }
@@ -34,7 +35,8 @@ namespace Deterministic.FixedPoint
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Fix64 Cross(fp2 a, fp2 b) {
+        public static Fix64 Cross(fp2 a, fp2 b)
+        {
             a.x.value = (a.x.value * b.y.value >> fixlut.PRECISION) - (a.y.value * b.x.value >> fixlut.PRECISION);
             return a.x;
         }
@@ -46,13 +48,14 @@ namespace Deterministic.FixedPoint
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 Cross(Fix64 s, fp2 a) {
+        public static fp2 Cross(Fix64 s, fp2 a)
+        {
             fp2 result;
             result.x.value = -s.value * a.y.value >> fixlut.PRECISION;
             result.y.value = s.value * a.x.value >> fixlut.PRECISION;
             return result;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 Clamp(fp2 num, fp2 min, fp2 max)
         {
@@ -62,7 +65,8 @@ namespace Deterministic.FixedPoint
             {
                 r.x = min.x;
             }
-            else {
+            else
+            {
                 r.x = num.x.value > max.x.value ? max.x : num.x;
             }
 
@@ -70,7 +74,8 @@ namespace Deterministic.FixedPoint
             {
                 r.y = min.y;
             }
-            else {
+            else
+            {
                 r.y = num.y.value > max.y.value ? max.y : num.y;
             }
 
@@ -199,12 +204,12 @@ namespace Deterministic.FixedPoint
             else
             {
                 var b1 = (r.value >> 1) + 1L;
-                var c  = (b1 + (r.value / b1)) >> 1;
+                var c = (b1 + (r.value / b1)) >> 1;
 
                 while (c < b1)
                 {
                     b1 = c;
-                    c  = (b1 + (r.value / b1)) >> 1;
+                    c = (b1 + (r.value / b1)) >> 1;
                 }
 
                 r1.value = b1 << (fixlut.PRECISION >> 1);
@@ -267,7 +272,7 @@ namespace Deterministic.FixedPoint
 
             return v1;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 Normalize(fp2 v, out Fix64 magnitude)
         {
@@ -282,11 +287,12 @@ namespace Deterministic.FixedPoint
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 Lerp(fp2 from, fp2 to, Fix64 t) {
+        public static fp2 Lerp(fp2 from, fp2 to, Fix64 t)
+        {
             t = Clamp01(t);
             return new fp2(LerpUnclamped(from.x, to.x, t), LerpUnclamped(from.y, to.y, t));
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 LerpUnclamped(fp2 from, fp2 to, Fix64 t)
         {
@@ -312,12 +318,12 @@ namespace Deterministic.FixedPoint
             else
             {
                 var b2 = (r2.value >> 1) + 1L;
-                var c  = (b2 + (r2.value / b2)) >> 1;
+                var c = (b2 + (r2.value / b2)) >> 1;
 
                 while (c < b2)
                 {
                     b2 = c;
-                    c  = (b2 + (r2.value / b2)) >> 1;
+                    c = (b2 + (r2.value / b2)) >> 1;
                 }
 
                 r1.value = b2 << (fixlut.PRECISION >> 1);
@@ -390,7 +396,8 @@ namespace Deterministic.FixedPoint
             {
                 ret = min;
             }
-            else {
+            else
+            {
                 ret = dot.value > max.value ? max : dot;
             }
 
@@ -416,12 +423,12 @@ namespace Deterministic.FixedPoint
             else
             {
                 var b2 = (r2.value >> 1) + 1L;
-                var c  = (b2 + (r2.value / b2)) >> 1;
+                var c = (b2 + (r2.value / b2)) >> 1;
 
                 while (c < b2)
                 {
                     b2 = c;
-                    c  = (b2 + (r2.value / b2)) >> 1;
+                    c = (b2 + (r2.value / b2)) >> 1;
                 }
 
                 r1.value = b2 << (fixlut.PRECISION >> 1);
@@ -528,12 +535,12 @@ namespace Deterministic.FixedPoint
             else
             {
                 var b2 = (r2.value >> 1) + 1L;
-                var c  = (b2 + (r2.value / b2)) >> 1;
+                var c = (b2 + (r2.value / b2)) >> 1;
 
                 while (c < b2)
                 {
                     b2 = c;
-                    c  = (b2 + (r2.value / b2)) >> 1;
+                    c = (b2 + (r2.value / b2)) >> 1;
                 }
 
                 r1.value = b2 << (fixlut.PRECISION >> 1);
@@ -618,8 +625,8 @@ namespace Deterministic.FixedPoint
                 }
             }
 
-            var rad  = new Fix64(fixlut.acos(ret.value));
-            var sign = ((a.x * b.y - a.y * b.x).value <  fixlut.ZERO) ? Fix64.minus_one : Fix64._1;
+            var rad = new Fix64(fixlut.acos(ret.value));
+            var sign = ((a.x * b.y - a.y * b.x).value < fixlut.ZERO) ? Fix64.minus_one : Fix64._1;
 
             return rad * sign;
         }
@@ -643,7 +650,8 @@ namespace Deterministic.FixedPoint
             {
                 ret = min;
             }
-            else {
+            else
+            {
                 ret = dot.value > max.value ? max : dot;
             }
 
@@ -681,7 +689,7 @@ namespace Deterministic.FixedPoint
                 }
             }
 
-            var rad  = new Fix64(fixlut.acos(ret.value));
+            var rad = new Fix64(fixlut.acos(ret.value));
             var sign = ((a.x * b.y - a.y * b.x).value < fixlut.ZERO) ? Fix64.minus_one : Fix64._1;
 
             return rad * sign;

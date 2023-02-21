@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Deterministic.FixedPoint;
+using com.muf.fixedmath;
 using FluentAssertions;
 using NUnit.Framework;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Deterministic.FixedPoint
+namespace com.muf.fixedmath
 {
     [Serializable]
     [StructLayout(LayoutKind.Explicit, Size = SIZE)]

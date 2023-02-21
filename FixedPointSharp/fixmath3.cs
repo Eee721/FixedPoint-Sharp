@@ -1,26 +1,27 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Deterministic.FixedPoint
+namespace com.muf.fixedmath
 {
     public partial struct fixmath
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Fix64 Sum(fp3 v) {
+        public static Fix64 Sum(fp3 v)
+        {
             return new Fix64(v.x.value + v.y.value + v.z.value);
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 Abs(fp3 v)
         {
             return new fp3(Abs(v.x), Abs(v.y), Abs(v.z));
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Fix64 Dot(fp3 a, fp3 b)
         {
             return new Fix64(((a.x.value * b.x.value) >> fixlut.PRECISION) + ((a.y.value * b.y.value) >> fixlut.PRECISION) + ((a.z.value * b.z.value) >> fixlut.PRECISION));
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 Cross(fp3 a, fp3 b)
         {
@@ -29,7 +30,7 @@ namespace Deterministic.FixedPoint
             r.x = a.y * b.z - a.z * b.y;
             r.y = a.z * b.x - a.x * b.z;
             r.z = a.x * b.y - a.y * b.x;
-            
+
             return r;
         }
 
@@ -43,7 +44,7 @@ namespace Deterministic.FixedPoint
 
             return Magnitude(v);
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Fix64 DistanceSqr(fp3 p1, fp3 p2)
         {
@@ -85,7 +86,7 @@ namespace Deterministic.FixedPoint
             var dot = Dot(vector, normal);
             return normal * dot / sqrMag;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 ProjectOnPlane(fp3 vector, fp3 planeNormal)
         {
@@ -136,19 +137,19 @@ namespace Deterministic.FixedPoint
                 : Fix64._1;
             return angle * sign;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Fix64 Radians(fp3 a, fp3 b)
         {
             return Acos(Clamp(Dot(Normalize(a), Normalize(b)), Fix64.minus_one, Fix64._1));
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Fix64 RadiansSkipNormalize(fp3 a, fp3 b)
         {
             return Acos(Clamp(Dot(a, b), Fix64.minus_one, Fix64._1));
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Fix64 MagnitudeSqr(fp3 v)
         {
@@ -159,7 +160,7 @@ namespace Deterministic.FixedPoint
 
             return v.x;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Fix64 Magnitude(fp3 v)
         {
@@ -167,7 +168,7 @@ namespace Deterministic.FixedPoint
                 ((v.x.value * v.x.value) >> fixlut.PRECISION) +
                 ((v.y.value * v.y.value) >> fixlut.PRECISION) +
                 ((v.z.value * v.z.value) >> fixlut.PRECISION);
-            
+
             return Sqrt(v.x);
         }
 
@@ -182,7 +183,7 @@ namespace Deterministic.FixedPoint
             var normalized = v / magnitude;
             return normalized * length;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 MagnitudeSet(fp3 v, Fix64 length)
         {
@@ -194,7 +195,7 @@ namespace Deterministic.FixedPoint
         {
             return new fp3(Min(a.x, b.x), Min(a.y, b.y), Min(a.z, b.z));
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 Max(fp3 a, fp3 b)
         {
@@ -206,10 +207,10 @@ namespace Deterministic.FixedPoint
         {
             if (v == fp3.zero)
                 return fp3.zero;
-            
-            return v /  Magnitude(v);
+
+            return v / Magnitude(v);
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 Normalize(fp3 v, out Fix64 magnitude)
         {

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Deterministic.FixedPoint
+namespace com.muf.fixedmath
 {
     public partial struct fixmath
     {

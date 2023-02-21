@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Deterministic.FixedPoint;
+using com.muf.fixedmath;
 using NUnit.Framework;
 
 namespace UnitTests

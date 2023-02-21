@@ -1,4 +1,4 @@
-﻿namespace Deterministic.FixedPoint
+﻿namespace com.muf.fixedmath
 {
     public static partial class fixlut
     {

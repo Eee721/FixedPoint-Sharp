@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Deterministic.FixedPoint
+namespace com.muf.fixedmath
 {
     [StructLayout(LayoutKind.Explicit, Size = SIZE)]
     public struct Random

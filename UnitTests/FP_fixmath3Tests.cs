@@ -1,4 +1,4 @@
-﻿using Deterministic.FixedPoint;
+﻿using com.muf.fixedmath;
 using FluentAssertions;
 using NUnit.Framework;
 
